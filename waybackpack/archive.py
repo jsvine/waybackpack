@@ -1,15 +1,7 @@
-# Python 2/3 compatibility
-try:
-    from urllib.request import urlopen
-    from urllib.parse import urlparse, urlencode
-except ImportError:
-    from urllib2 import urlopen
-    from urlparse import urlparse
-
+from . import request
 import datetime as dt
 import re
 import sys, os
-
 import logging
 logger = logging.getLogger(__name__)
 
@@ -73,22 +65,22 @@ class Snapshot(object):
 
     def fetch(self, flag=""):
         url = self.get_url(flag)
-        content = urlopen(url).read()
+        content = request.urlopen(url).read()
         return content
 
 class Resource(object):
     def __init__(self, url):
         self.url = url
 
-        prefix = "http://" if urlparse(url).scheme == "" else  ""
+        prefix = "http://" if request.urlparse(url).scheme == "" else  ""
         self.full_url = prefix + url
-        self.parsed_url = urlparse(self.full_url)
+        self.parsed_url = request.urlparse(self.full_url)
     
     @property
     def timestamps(self):
         if hasattr(self, "_timestamps"): return self._timestamps
         url = MEMENTO_TEMPLATE.format(url=self.url)
-        memento = urlopen(url).read().decode("utf-8")
+        memento = request.urlopen(url).read().decode("utf-8")
         lines = memento.split("\n")
         matches = filter(None, (re.search(MEMENTO_TIMESTAMP_PAT, line) for line in lines))
         _timestamps = [ m.group(1) for m in matches ]
