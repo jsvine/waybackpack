@@ -10,13 +10,18 @@ MEMENTO_TEMPLATE = "https://web.archive.org/web/timemap/link/{url}"
 ARCHIVE_TEMPLATE = "https://web.archive.org/web/{timestamp}{flag}/{url}"
 
 MEMENTO_TIMESTAMP_PAT = re.compile(r"^<http://web.archive.org/web/(\d+)/")
-
 class SnapshotView(object):
     removal_patterns = [
         re.compile(b"<!-- BEGIN WAYBACK TOOLBAR INSERT -->.*?<!-- END WAYBACK TOOLBAR INSERT -->", re.DOTALL),
         re.compile(b'<script type="text/javascript" src="/static/js/analytics.js"></script>'),
         re.compile(b'<script type="text/javascript">archive_analytics.values.server_name=[^<]+</script>'),
         re.compile(b'<link type="text/css" rel="stylesheet" href="/static/css/banner-styles.css"/>'),
+    ]
+
+    redirect_patterns = [
+        re.compile(b'<p [^>]+>Got an HTTP (30\d) response at crawl time</p>'),
+        re.compile(b'<title>\s*Internet Archive Wayback Machine\s*</title>'),
+        re.compile(b'<a href="([^"]+)">Impatient\?</a>')
     ]
 
     def __init__(self, snapshot,
@@ -32,8 +37,21 @@ class SnapshotView(object):
         if self.original:
             return content
         else:
-            if re.search(self.removal_patterns[0], content) == None:
+            rdp = self.redirect_patterns
+
+            is_redirect = sum(re.search(pat, content) != None
+                for pat in rdp) == len(rdp)
+
+            if is_redirect:
+                code = re.search(rdp[0], content).group(1).decode("utf-8")
+                loc = re.search(rdp[2], content).group(1).decode("utf-8")
+                log_msg = "Encountered {0} redirect to {1}; not following it."
+                logger.info(log_msg.format(code, loc))
+                return b""
+
+            elif re.search(self.removal_patterns[0], content) == None:
                 return content
+
             else:
                 for pat in self.removal_patterns:
                     content = re.sub(pat, b"", content)
