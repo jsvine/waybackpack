@@ -2,17 +2,17 @@
 
 Waybackpack is a command-line tool that lets you download the entire Wayback Machine archive for a given URL.
 
-For instance, to download every copy of the Department of Labor's homepage, you'd run:
+For instance, to download every copy of the Department of Labor's homepage before 1997, you'd run:
 
 ```sh
 # Create a directory where you'll store the saved pages.
 mkdir ~/Downloads/dol-dot-gov
 
 # Download all the dol.gov copies to that directory
-waybackpack dol.gov -d ~/Downloads/dol-dot-gov
+waybackpack dol.gov -d ~/Downloads/dol-dot-gov --end 1997
 ```
 
-Or, just to print the URLs of the archived snapshots:
+Or, just to print the URLs of all archived snapshots:
 
 ```sh
 waybackpack dol.gov --list
