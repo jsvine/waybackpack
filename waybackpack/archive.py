@@ -83,7 +83,12 @@ class Snapshot(object):
 
     def fetch(self, flag=""):
         url = self.get_url(flag)
-        content = request.urlopen(url).read()
+        try:
+            content = request.urlopen(url).read()
+        except request.rq.HTTPError, e:
+            log_msg = "Encountered {0} error."
+            logger.info(log_msg.format(e.code, url))
+            content = e.fp.read()
         return content
 
 class Resource(object):
