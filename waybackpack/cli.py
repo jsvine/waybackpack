@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from .archive import Resource, DEFAULT_ROOT
+from .archive import Resource, DEFAULT_ROOT, DEFAULT_USER_AGENT
 import argparse
 import logging
 
@@ -36,6 +36,10 @@ def parse_args():
     parser.add_argument("--end",
         help="Timestamp-string indicating the latest snapshot to download. Should take the format YYYYMMDDhhss, though you can omit as many of the trailing digits as you like. E.g., '201604' is valid.")
 
+    parser.add_argument("--user-agent",
+        help="The User-Agent header to send along with your requests to the Wayback Machine. If possible, please include the phrase 'waybackpack' and your email address. That way, if you're battering their servers, they know who to contact. Default: '{0}'.".format(DEFAULT_USER_AGENT),
+        default=DEFAULT_USER_AGENT)
+
     parser.add_argument("--quiet",
         action="store_true",
         help="Don't log progress to stderr.")
@@ -56,6 +60,7 @@ def main():
         resource.download_to(args.dir,
             original=args.original,
             root=args.root,
+            user_agent=args.user_agent,
             prefix=args.prefix,
             suffix=args.suffix)
     else:

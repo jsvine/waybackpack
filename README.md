@@ -29,35 +29,41 @@ pip install waybackpack
 ```
 waybackpack [-h] (-d DIR | --list) [--original] [--root ROOT]
               [--prefix PREFIX] [--suffix SUFFIX] [--start START] [--end END]
-              [--quiet]
+              [--user-agent USER_AGENT] [--quiet]
               url
 
 positional arguments:
-  url                The URL of the resource you want to download.
+  url                   The URL of the resource you want to download.
 
 optional arguments:
-  -h, --help         show this help message and exit
-  -d DIR, --dir DIR  Directory to save the files.
-  --list             Instead of downloading the files, only print the list of
-                     snapshots.
-  --original         Fetch file in its original state, without snapshotted
-                     images/CSS/JS.
-  --root ROOT        The root URL from which to serve snapshotted resources.
-                     Default: 'https://web.archive.org'
-  --prefix PREFIX    Prefix to prepend to saved files. Defaults to the URL,
-                     with all non-alphanumeric characters replaced with
-                     hyphens.
-  --suffix SUFFIX    Suffix to append to saved files. Defaults to the file
-                     extension of the URL you're downloading.
-  --start START      Timestamp-string indicating the earliest snapshot to
-                     download. Should take the format YYYYMMDDhhss, though you
-                     can omit as many of the trailing digits as you like.
-                     E.g., '201501' is valid.
-  --end END          Timestamp-string indicating the latest snapshot to
-                     download. Should take the format YYYYMMDDhhss, though you
-                     can omit as many of the trailing digits as you like.
-                     E.g., '201604' is valid.
-  --quiet            Don't log progress to stderr.
+  -h, --help            show this help message and exit
+  -d DIR, --dir DIR     Directory to save the files.
+  --list                Instead of downloading the files, only print the list
+                        of snapshots.
+  --original            Fetch file in its original state, without snapshotted
+                        images/CSS/JS.
+  --root ROOT           The root URL from which to serve snapshotted
+                        resources. Default: 'https://web.archive.org'
+  --prefix PREFIX       Prefix to prepend to saved files. Defaults to the URL,
+                        with all non-alphanumeric characters replaced with
+                        hyphens.
+  --suffix SUFFIX       Suffix to append to saved files. Defaults to the file
+                        extension of the URL you're downloading.
+  --start START         Timestamp-string indicating the earliest snapshot to
+                        download. Should take the format YYYYMMDDhhss, though
+                        you can omit as many of the trailing digits as you
+                        like. E.g., '201501' is valid.
+  --end END             Timestamp-string indicating the latest snapshot to
+                        download. Should take the format YYYYMMDDhhss, though
+                        you can omit as many of the trailing digits as you
+                        like. E.g., '201604' is valid.
+  --user-agent USER_AGENT
+                        The User-Agent header to send along with your requests
+                        to the Wayback Machine. If possible, please include
+                        the phrase 'waybackpack' and your email address. That
+                        way, if you're battering their servers, they know who
+                        to contact. Default: 'waybackpack'.
+  --quiet               Don't log progress to stderr.
 ```
 
 ## Support
