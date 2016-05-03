@@ -63,3 +63,11 @@ optional arguments:
 ## Support
 
 Waypackback is written in dependency-less Python, and should work wherever Python works. Should be compatible with both Python 2 and Python 3.
+
+## Thanks
+
+Many thanks to the following users for catching bugs and/or proposing fixes:
+
+- [@grawity](https://github.com/grawity)
+- [@taggartk](https://github.com/taggartk)
+- [@jtemplon](https://github.com/jtemplon)
