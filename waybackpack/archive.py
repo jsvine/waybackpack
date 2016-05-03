@@ -1,6 +1,7 @@
 from . import request
 import datetime as dt
 import re
+import time
 import sys, os
 import logging
 logger = logging.getLogger(__name__)
@@ -83,12 +84,20 @@ class Snapshot(object):
 
     def fetch(self, flag=""):
         url = self.get_url(flag)
-        try:
-            content = request.urlopen(url).read()
-        except request.rq.HTTPError as e:
-            log_msg = "Encountered {0} error."
-            logger.info(log_msg.format(e.code, url))
-            content = e.fp.read()
+        content = None
+        while content == None:
+            try:
+                content = request.urlopen(url).read()
+                response_is_final = True
+            except request.rq.HTTPError as e:
+                log_msg = "Encountered {0} error."
+                logger.info(log_msg.format(e.code, url))
+                # On 5xx errors, sleep one second and try again
+                if int(e.code / 100) == 5: 
+                    time.sleep(1)
+                    continue
+                else:
+                    content = e.fp.read()
         return content
 
 class Resource(object):
