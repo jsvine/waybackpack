@@ -1,10 +1,12 @@
 from . import request
 import datetime as dt
 import re
+import time
 import sys, os
 import logging
 logger = logging.getLogger(__name__)
 
+DEFAULT_USER_AGENT = "waybackpack"
 DEFAULT_ROOT = "https://web.archive.org"
 MEMENTO_TEMPLATE = "https://web.archive.org/web/timemap/link/{url}"
 ARCHIVE_TEMPLATE = "https://web.archive.org/web/{timestamp}{flag}/{url}"
@@ -31,9 +33,9 @@ class SnapshotView(object):
         self.original = original
         self.root = root
 
-    def fetch(self):
+    def fetch(self, user_agent=DEFAULT_USER_AGENT):
         flag = "id_" if self.original else ""
-        content = self.snapshot.fetch(flag)
+        content = self.snapshot.fetch(flag=flag, user_agent=user_agent)
         if self.original:
             return content
         else:
@@ -81,14 +83,23 @@ class Snapshot(object):
     def url_original(self):
         return self.get_url("id_")
 
-    def fetch(self, flag=""):
+    def fetch(self, flag="", user_agent=DEFAULT_USER_AGENT):
         url = self.get_url(flag)
-        try:
-            content = request.urlopen(url).read()
-        except request.rq.HTTPError as e:
-            log_msg = "Encountered {0} error."
-            logger.info(log_msg.format(e.code, url))
-            content = e.fp.read()
+        req = request.rq.Request(url, headers={"User-Agent": user_agent})
+        content = None
+        while content == None:
+            try:
+                content = request.urlopen(req).read()
+                response_is_final = True
+            except request.rq.HTTPError as e:
+                log_msg = "Encountered {0} error."
+                logger.info(log_msg.format(e.code, url))
+                # On 5xx errors, sleep one second and try again
+                if int(e.code / 100) == 5: 
+                    time.sleep(1)
+                    continue
+                else:
+                    content = e.fp.read()
         return content
 
 class Resource(object):
@@ -136,6 +147,7 @@ class Resource(object):
     def download_to(self, directory,
         original=False,
         root=DEFAULT_ROOT,
+        user_agent=DEFAULT_USER_AGENT,
         prefix=None,
         suffix=None):
 
@@ -162,7 +174,7 @@ class Resource(object):
 
             with open(path, "wb") as f:
                 logger.info("Fetching {0}".format(ts))
-                content = view.fetch()
+                content = view.fetch(user_agent=user_agent)
 
                 logger.info("Writing to {0}\n".format(path))
                 f.write(content) 
