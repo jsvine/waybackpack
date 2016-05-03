@@ -85,7 +85,7 @@ class Snapshot(object):
         url = self.get_url(flag)
         try:
             content = request.urlopen(url).read()
-        except request.rq.HTTPError, e:
+        except request.rq.HTTPError as e:
             log_msg = "Encountered {0} error."
             logger.info(log_msg.format(e.code, url))
             content = e.fp.read()
