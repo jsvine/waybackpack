@@ -72,8 +72,10 @@ Waypackback is written in dependency-less Python, and should work wherever Pytho
 
 ## Thanks
 
-Many thanks to the following users for catching bugs and/or proposing fixes:
+Many thanks to the following users for catching bugs, fixing typos, and proposing useful features:
 
 - [@grawity](https://github.com/grawity)
 - [@taggartk](https://github.com/taggartk)
 - [@jtemplon](https://github.com/jtemplon)
+- [@jwilk](https://github.com/jwilk)
+- [@wumpus](https://github.com/wumpus)
