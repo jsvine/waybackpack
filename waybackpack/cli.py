@@ -49,7 +49,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    
+
     logging.basicConfig(level=(logging.WARN if args.quiet else logging.INFO))
 
     resource = Resource(args.url)

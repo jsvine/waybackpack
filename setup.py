@@ -30,6 +30,6 @@ setup(
     tests_require=[ "nose" ] + base_reqs,
     install_requires=base_reqs,
     entry_points={
-        "console_scripts": [ "waybackpack = waybackpack.cli:main" ] 
+        "console_scripts": [ "waybackpack = waybackpack.cli:main" ]
     }
 )
