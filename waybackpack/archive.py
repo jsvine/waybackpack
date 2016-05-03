@@ -98,7 +98,7 @@ class Resource(object):
         prefix = "http://" if request.urlparse(url).scheme == "" else  ""
         self.full_url = prefix + url
         self.parsed_url = request.urlparse(self.full_url)
-    
+
     @property
     def timestamps(self):
         if hasattr(self, "_timestamps"): return self._timestamps
@@ -113,7 +113,7 @@ class Resource(object):
     @property
     def snapshots(self):
         return [ Snapshot(self, t) for t in self.timestamps ]
-    
+
     def between(self, start=None, end=None):
         if start != None and not isinstance(start, (str, int)):
             raise ValueError("`start` should be a string or integer.")
@@ -125,7 +125,7 @@ class Resource(object):
 
         def test_timestamp(t):
             return (
-                ((t >= str(start)) or start == None) and 
+                ((t >= str(start)) or start == None) and
                 ((t <= str(end)) or end == None)
             )
 
@@ -140,7 +140,7 @@ class Resource(object):
         suffix=None):
 
         if prefix == None:
-            chunk = self.full_url[len(self.parsed_url.scheme)+3:] 
+            chunk = self.full_url[len(self.parsed_url.scheme)+3:]
             prefix = re.sub(r"[^a-zA-Z0-9]+", "-", chunk).strip("-") + "-"
 
         if suffix == None:
@@ -165,4 +165,4 @@ class Resource(object):
                 content = view.fetch()
 
                 logger.info("Writing to {0}\n".format(path))
-                f.write(content) 
+                f.write(content)
