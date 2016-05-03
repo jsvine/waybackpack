@@ -40,7 +40,7 @@ optional arguments:
   -d DIR, --dir DIR  Directory to save the files.
   --list             Instead of downloading the files, only print the list of
                      snapshots.
-  --original         Fetch file in its original state, without snappshotted
+  --original         Fetch file in its original state, without snapshotted
                      images/CSS/JS.
   --root ROOT        The root URL from which to serve snapshotted resources.
                      Default: 'https://web.archive.org'

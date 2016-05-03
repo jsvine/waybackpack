@@ -19,7 +19,7 @@ def parse_args():
 
     parser.add_argument("--original",
         action="store_true",
-        help="Fetch file in its original state, without snappshotted images/CSS/JS.")
+        help="Fetch file in its original state, without snapshotted images/CSS/JS.")
 
     parser.add_argument("--root", default=DEFAULT_ROOT,
         help="The root URL from which to serve snapshotted resources. Default: '{0}'".format(DEFAULT_ROOT))
