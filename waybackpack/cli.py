@@ -11,7 +11,7 @@ def parse_args():
     group = parser.add_mutually_exclusive_group(required=True)
 
     group.add_argument("-d", "--dir",
-        help="Directory to save the files.")
+        help="Directory to save the files. Will create this directory if it doesn't already exist.")
 
     group.add_argument("--list",
         action="store_true",

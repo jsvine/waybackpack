@@ -37,7 +37,8 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  -d DIR, --dir DIR     Directory to save the files.
+  -d DIR, --dir DIR     Directory to save the files. Will create this
+                        directory if it doesn't already exist.
   --list                Instead of downloading the files, only print the list
                         of snapshots.
   --original            Fetch file in its original state, without snapshotted
