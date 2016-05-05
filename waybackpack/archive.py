@@ -169,6 +169,11 @@ class Resource(object):
                 prefix=prefix, ts=ts, suffix=suffix)
             path = os.path.join(directory, filename)
 
+            try:
+                os.makedirs(directory)
+            except OSError:
+                pass
+
             with open(path, "wb") as f:
                 logger.info("Fetching {0}".format(ts))
                 content = view.fetch(user_agent=user_agent)
