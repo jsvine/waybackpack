@@ -157,10 +157,7 @@ class Resource(object):
 
         if suffix == None:
             base, ext = os.path.splitext(self.parsed_url.path)
-            if ext == "":
-                suffix = ".html"
-            else:
-                suffix = ext
+            suffix = ext or ".html"
 
         for snapshot in self.snapshots:
             view = SnapshotView(snapshot,
