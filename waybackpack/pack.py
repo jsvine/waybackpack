@@ -1,7 +1,7 @@
 from .settings import DEFAULT_ROOT
-from .timemap import TimeMap
 from .session import Session
 from .asset import Asset
+from .cdx import search
 import hashlib
 import sys, os
 import logging
@@ -16,6 +16,7 @@ class Pack(object):
     def __init__(self,
         url,
         timestamps=None,
+        uniques_only=False,
         session=None):
 
         self.url = url
@@ -24,16 +25,17 @@ class Pack(object):
         self.parsed_url = urlparse(self.full_url)
 
         self.session = session or Session()
-        self.timestamps = timestamps or TimeMap(url).get_timestamps(session=self.session)
+
+        self.timestamps = timestamps or [ snap["timestamp"] for snap in search(
+            url,
+            uniques_only=uniques_only,
+            session=self.session
+        ) ]
         self.assets = [ Asset(self.url, ts) for ts in self.timestamps ]
 
     def download_to(self, directory,
         raw=False,
-        root=DEFAULT_ROOT,
-        uniques_only=False):
-
-        if uniques_only:
-            file_hashes = set()
+        root=DEFAULT_ROOT):
 
         for asset in self.assets:
             path_head, path_tail = os.path.split(self.parsed_url.path)
@@ -60,23 +62,6 @@ class Pack(object):
                 raw=raw,
                 root=root
             )
-
-            # Check for uniqueness
-            if uniques_only:
-                if raw:
-                    content_to_hash = content
-                else:
-                    content_to_hash = asset.fetch(
-                        session=self.session,
-                        raw=True
-                    )
-                file_hash = hashlib.sha256(content_to_hash).hexdigest()
-                file_hash_tuple = (asset.original_url, file_hash)
-                if file_hash_tuple in file_hashes:
-                    logger.info("Duplicate file, skipping.\n")
-                    continue
-                else:
-                    file_hashes.add(file_hash_tuple)
 
             try:
                 os.makedirs(filedir)

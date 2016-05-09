@@ -8,8 +8,8 @@ import tempfile
 class Test(unittest.TestCase):
     def test_basic(self):
         url = "dol.gov"
-        timemap = waybackpack.TimeMap(url)
-        timestamps = timemap.get_timestamps().between(None, 1997)
+        snapshots = waybackpack.search(url, to_date=1996)
+        timestamps = [ snap["timestamp"] for snap in snapshots ]
         pack = waybackpack.Pack(url, timestamps)
         dirpath = tempfile.mkdtemp()
         pack.download_to(dirpath)

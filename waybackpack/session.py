@@ -9,14 +9,15 @@ class Session(object):
         self.follow_redirects = follow_redirects
         self.user_agent = user_agent
 
-    def get(self, url):
+    def get(self, url, **kwargs):
         headers = { "User-Agent": self.user_agent }
         response_is_final = False
         while (response_is_final == False):
             res = requests.get(
                 url,
                 allow_redirects=self.follow_redirects,
-                headers=headers
+                headers=headers,
+                **kwargs
             )
             if res.status_code != 200:
                 logger.info("HTTP status code: {0}".format(res.status_code))
