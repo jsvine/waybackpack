@@ -5,11 +5,25 @@ Waybackpack is a command-line tool that lets you download the entire Wayback Mac
 For instance, to download every copy of the Department of Labor's homepage before 1997, you'd run:
 
 ```sh
-# Create a directory where you'll store the saved pages.
-mkdir ~/Downloads/dol-dot-gov
+waybackpack dol.gov -d ~/Downloads/dol-wayback --end 1997
+```
 
-# Download all the dol.gov copies to that directory
-waybackpack dol.gov -d ~/Downloads/dol-dot-gov --end 1997
+Result:
+
+```sh
+~/Downloads/dol-wayback/
+├── 19961102145216
+│   └── dol.gov
+│       └── index.html
+├── 19961103063843
+│   └── dol.gov
+│       └── index.html
+├── 19961222171647
+│   └── dol.gov
+│       └── index.html
+└── 19961223193614
+    └── dol.gov
+        └── index.html
 ```
 
 Or, just to print the URLs of all archived snapshots:
@@ -27,10 +41,10 @@ pip install waybackpack
 ## Usage
 
 ```
-waybackpack [-h] (-d DIR | --list) [--original] [--root ROOT]
-              [--prefix PREFIX] [--suffix SUFFIX] [--start START] [--end END]
-              [--user-agent USER_AGENT] [--quiet]
-              url
+usage: waybackpack [-h] (-d DIR | --list) [--raw] [--root ROOT]
+                   [--start START] [--end END] [--user-agent USER_AGENT]
+                   [--follow-redirects] [--uniques-only] [--quiet]
+                   url
 
 positional arguments:
   url                   The URL of the resource you want to download.
@@ -41,15 +55,10 @@ optional arguments:
                         directory if it doesn't already exist.
   --list                Instead of downloading the files, only print the list
                         of snapshots.
-  --original            Fetch file in its original state, without snapshotted
-                        images/CSS/JS.
+  --raw                 Fetch file in its original state, without any
+                        processing by the Wayback Machine or waybackpack.
   --root ROOT           The root URL from which to serve snapshotted
                         resources. Default: 'https://web.archive.org'
-  --prefix PREFIX       Prefix to prepend to saved files. Defaults to the URL,
-                        with all non-alphanumeric characters replaced with
-                        hyphens.
-  --suffix SUFFIX       Suffix to append to saved files. Defaults to the file
-                        extension of the URL you're downloading.
   --start START         Timestamp-string indicating the earliest snapshot to
                         download. Should take the format YYYYMMDDhhss, though
                         you can omit as many of the trailing digits as you
@@ -64,12 +73,14 @@ optional arguments:
                         the phrase 'waybackpack' and your email address. That
                         way, if you're battering their servers, they know who
                         to contact. Default: 'waybackpack'.
+  --follow-redirects    Follow redirects.
+  --uniques-only        Download only the first version of duplicate files.
   --quiet               Don't log progress to stderr.
 ```
 
 ## Support
 
-Waypackback is written in dependency-less Python, and should work wherever Python works. Should be compatible with both Python 2 and Python 3.
+Waypackback is written in pure Python, depends only on [`requests`](docs.python-requests.org), and should work wherever Python works. Should be compatible with both Python 2 and Python 3.
 
 ## Thanks
 
@@ -80,3 +91,5 @@ Many thanks to the following users for catching bugs, fixing typos, and proposin
 - [@jtemplon](https://github.com/jtemplon)
 - [@jwilk](https://github.com/jwilk)
 - [@wumpus](https://github.com/wumpus)
+- [@bevacqua](https://github.com/bevacqua)
+- [@ErikBorra](https://github.com/ErikBorra)
