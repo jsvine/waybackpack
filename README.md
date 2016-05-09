@@ -2,10 +2,10 @@
 
 Waybackpack is a command-line tool that lets you download the entire Wayback Machine archive for a given URL.
 
-For instance, to download every copy of the Department of Labor's homepage before 1997, you'd run:
+For instance, to download every copy of the Department of Labor's homepage through 1996 (which happens to be the first year the site was archived), you'd run:
 
 ```sh
-waybackpack dol.gov -d ~/Downloads/dol-wayback --end 1997
+waybackpack dol.gov -d ~/Downloads/dol-wayback --to-date 1996
 ```
 
 Result:
@@ -42,8 +42,9 @@ pip install waybackpack
 
 ```
 usage: waybackpack [-h] (-d DIR | --list) [--raw] [--root ROOT]
-                   [--start START] [--end END] [--user-agent USER_AGENT]
-                   [--follow-redirects] [--uniques-only] [--quiet]
+                   [--from-date FROM_DATE] [--to-date TO_DATE]
+                   [--user-agent USER_AGENT] [--follow-redirects]
+                   [--uniques-only] [--collapse COLLAPSE] [--quiet]
                    url
 
 positional arguments:
@@ -59,11 +60,12 @@ optional arguments:
                         processing by the Wayback Machine or waybackpack.
   --root ROOT           The root URL from which to serve snapshotted
                         resources. Default: 'https://web.archive.org'
-  --start START         Timestamp-string indicating the earliest snapshot to
+  --from-date FROM_DATE
+                        Timestamp-string indicating the earliest snapshot to
                         download. Should take the format YYYYMMDDhhss, though
                         you can omit as many of the trailing digits as you
                         like. E.g., '201501' is valid.
-  --end END             Timestamp-string indicating the latest snapshot to
+  --to-date TO_DATE     Timestamp-string indicating the latest snapshot to
                         download. Should take the format YYYYMMDDhhss, though
                         you can omit as many of the trailing digits as you
                         like. E.g., '201604' is valid.
@@ -75,6 +77,9 @@ optional arguments:
                         to contact. Default: 'waybackpack'.
   --follow-redirects    Follow redirects.
   --uniques-only        Download only the first version of duplicate files.
+  --collapse COLLAPSE   An archive.org `collapse` parameter. Cf.:
+                        https://github.com/internetarchive/wayback/blob/master
+                        /wayback-cdx-server/README.md#collapsing
   --quiet               Don't log progress to stderr.
 ```
 

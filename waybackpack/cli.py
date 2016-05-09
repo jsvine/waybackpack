@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from .session import Session
 from .pack import Pack
-from .timemap import TimeMap
+from .cdx import search
 from .settings import DEFAULT_USER_AGENT, DEFAULT_ROOT
 import argparse
 import logging
@@ -27,10 +27,10 @@ def parse_args():
     parser.add_argument("--root", default=DEFAULT_ROOT,
         help="The root URL from which to serve snapshotted resources. Default: '{0}'".format(DEFAULT_ROOT))
 
-    parser.add_argument("--start",
+    parser.add_argument("--from-date",
         help="Timestamp-string indicating the earliest snapshot to download. Should take the format YYYYMMDDhhss, though you can omit as many of the trailing digits as you like. E.g., '201501' is valid.")
 
-    parser.add_argument("--end",
+    parser.add_argument("--to-date",
         help="Timestamp-string indicating the latest snapshot to download. Should take the format YYYYMMDDhhss, though you can omit as many of the trailing digits as you like. E.g., '201604' is valid.")
 
     parser.add_argument("--user-agent",
@@ -44,6 +44,9 @@ def parse_args():
     parser.add_argument("--uniques-only",
         help="Download only the first version of duplicate files.",
         action="store_true")
+
+    parser.add_argument("--collapse",
+        help="An archive.org `collapse` parameter. Cf.: https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md#collapsing")
 
     parser.add_argument("--quiet",
         action="store_true",
@@ -61,11 +64,16 @@ def main():
         user_agent=args.user_agent,
         follow_redirects=args.follow_redirects
     )
-    timemap = TimeMap(args.url)
-    timestamps = timemap.get_timestamps(session=session)
 
-    if args.start != None or args.end != None:
-        timestamps = timestamps.between(args.start, args.end)
+    snapshots = search(args.url,
+        session=session,
+        from_date=args.from_date,
+        to_date=args.to_date,
+        uniques_only=args.uniques_only,
+        collapse=args.collapse
+    )
+
+    timestamps = [ snap["timestamp"] for snap in snapshots ]
 
     pack = Pack(
         args.url,
@@ -78,7 +86,6 @@ def main():
             args.dir,
             raw=args.raw,
             root=args.root,
-            uniques_only=args.uniques_only
         )
     else:
         flag = "id_" if args.raw else ""
