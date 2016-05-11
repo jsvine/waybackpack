@@ -18,8 +18,8 @@ def search(url,
         "output": "json",
         "collapse": collapse
     }).json()
-    fields = cdx[0]
     if len(cdx) < 2: return []
+    fields = cdx[0]
     snapshots = [ dict(zip(fields, row)) for row in cdx[1:] ]
     if uniques_only:
         return [ s for s in snapshots if int(s["dupecount"]) == 0 ]
