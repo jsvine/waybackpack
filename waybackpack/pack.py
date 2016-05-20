@@ -3,6 +3,7 @@ from .session import Session
 from .asset import Asset
 from .cdx import search
 import hashlib
+import urllib
 import sys, os
 import logging
 logger = logging.getLogger(__name__)
@@ -15,7 +16,7 @@ except ImportError:
 class Pack(object):
     def __init__(self,
         url,
-        timestamps=None,
+        snapshots=None,
         uniques_only=False,
         session=None):
 
@@ -26,30 +27,29 @@ class Pack(object):
 
         self.session = session or Session()
 
-        self.timestamps = timestamps or [ snap["timestamp"] for snap in search(
+        self.snapshots = snapshots or search(
             url,
             uniques_only=uniques_only,
             session=self.session
-        ) ]
-        self.assets = [ Asset(self.url, ts) for ts in self.timestamps ]
+        )
+        self.assets = [ Asset(snapshot) for snapshot in self.snapshots ]
 
     def download_to(self, directory,
         raw=False,
         root=DEFAULT_ROOT):
 
         for asset in self.assets:
-            path_head, path_tail = os.path.split(self.parsed_url.path)
-            if path_tail == "":
-                path_tail = "index.html"
+            path = urllib.parse.urlparse(asset.original_url).path
+            _, path_head, path_tail = path.rsplit('/', 2)
 
             filedir = os.path.join(
                 directory,
-                asset.timestamp,
                 self.parsed_url.netloc,
                 path_head
             )
 
-            filepath = os.path.join(filedir, path_tail)
+            filepath = os.path.join(filedir,
+                                    ','.join((path_tail, asset.timestamp)))
 
             logger.info(
                 "Fetching {0} @ {1}".format(
@@ -62,7 +62,7 @@ class Pack(object):
                 raw=raw,
                 root=root
             )
-
+            
             try:
                 os.makedirs(filedir)
             except OSError:

@@ -17,6 +17,7 @@ def search(url,
         "showDupeCount": "true",
         "output": "json",
         "collapse": collapse
+        
     }).json()
     if len(cdx) < 2: return []
     fields = cdx[0]

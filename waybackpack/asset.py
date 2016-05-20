@@ -23,9 +23,9 @@ REDIRECT_PATTERNS = [
 ]
 
 class Asset(object):
-    def __init__(self, original_url, timestamp):
-        self.timestamp = timestamp
-        self.original_url = original_url
+    def __init__(self, snapshot):
+        self.timestamp = snapshot['timestamp']
+        self.original_url = snapshot['original']
 
     def get_archive_url(self, raw=False):
         flag = "id_" if raw else ""
