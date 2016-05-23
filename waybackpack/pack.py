@@ -62,7 +62,7 @@ class Pack(object):
                 raw=raw,
                 root=root
             )
-            
+
             try:
                 os.makedirs(filedir)
             except OSError:
