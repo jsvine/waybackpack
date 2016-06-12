@@ -39,17 +39,21 @@ class Pack(object):
         root=DEFAULT_ROOT):
 
         for asset in self.assets:
-            path = urllib.parse.urlparse(asset.original_url).path
-            _, path_head, path_tail = path.rsplit('/', 2)
+            path = urllib.parse.urlparse(asset.original_url).path[1:]
+
+            if path:
+                path_head, path_tail = path.rsplit('/', 1)
+            else:
+                path_head, path_tail = '', 'index.html'
 
             filedir = os.path.join(
                 directory,
+                asset.timestamp,
                 self.parsed_url.netloc,
                 path_head
             )
 
-            filepath = os.path.join(filedir,
-                                    ','.join((path_tail, asset.timestamp)))
+            filepath = os.path.join(filedir, path_tail)
 
             logger.info(
                 "Fetching {0} @ {1}".format(
