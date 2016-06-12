@@ -43,6 +43,8 @@ class Pack(object):
 
             if path:
                 path_head, path_tail = path.rsplit('/', 1)
+                if not path_tail:
+                    path_tail = 'index.html'
             else:
                 path_head, path_tail = '', 'index.html'
 
