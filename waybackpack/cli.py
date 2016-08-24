@@ -2,12 +2,18 @@
 from .session import Session
 from .pack import Pack
 from .cdx import search
+from .version import __version__
 from .settings import DEFAULT_USER_AGENT, DEFAULT_ROOT
 import argparse
 import logging
 
 def parse_args():
     parser = argparse.ArgumentParser()
+
+    parser.add_argument("--version",
+        action="version",
+        version="%(prog)s " + __version__)
+
     parser.add_argument("url",
         help="The URL of the resource you want to download.")
 
