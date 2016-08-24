@@ -35,7 +35,8 @@ class Pack(object):
 
     def download_to(self, directory,
         raw=False,
-        root=DEFAULT_ROOT):
+        root=DEFAULT_ROOT,
+        ignore_errors=False):
 
         for asset in self.assets:
             path_head, path_tail = os.path.split(self.parsed_url.path)
@@ -57,11 +58,24 @@ class Pack(object):
                     asset.timestamp)
             )
 
-            content = asset.fetch(
-                session=self.session,
-                raw=raw,
-                root=root
-            )
+            try:
+                content = asset.fetch(
+                    session=self.session,
+                    raw=raw,
+                    root=root
+                )
+            except Exception as e:
+                if ignore_errors == True:
+                    ex_name = ".".join([ e.__module__, e.__class__.__name__ ])
+                    logger.warn("ERROR -- {0} @ {1} -- {2}: {3}".format(
+                        asset.original_url,
+                        asset.timestamp,
+                        ex_name,
+                        e
+                    ))
+                    return
+                else:
+                    raise
 
             try:
                 os.makedirs(filedir)
