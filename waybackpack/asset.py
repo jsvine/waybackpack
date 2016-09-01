@@ -44,6 +44,7 @@ class Asset(object):
         url = self.get_archive_url(raw)
         res = session.get(url)
         content = res.content
+        if content == None: return
 
         if raw:
             return content

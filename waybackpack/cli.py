@@ -2,12 +2,18 @@
 from .session import Session
 from .pack import Pack
 from .cdx import search
+from .version import __version__
 from .settings import DEFAULT_USER_AGENT, DEFAULT_ROOT
 import argparse
 import logging
 
 def parse_args():
     parser = argparse.ArgumentParser()
+
+    parser.add_argument("--version",
+        action="version",
+        version="%(prog)s " + __version__)
+
     parser.add_argument("url",
         help="The URL of the resource you want to download.")
 
@@ -48,6 +54,10 @@ def parse_args():
     parser.add_argument("--collapse",
         help="An archive.org `collapse` parameter. Cf.: https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md#collapsing")
 
+    parser.add_argument("--ignore-errors",
+        help="Don't crash on non-HTTP errors e.g., the requests library's ChunkedEncodingError. Instead, log error and continue. Cf. https://github.com/jsvine/waybackpack/issues/19",
+        action="store_true")
+
     parser.add_argument("--quiet",
         action="store_true",
         help="Don't log progress to stderr.")
@@ -58,7 +68,10 @@ def parse_args():
 def main():
     args = parse_args()
 
-    logging.basicConfig(level=(logging.WARN if args.quiet else logging.INFO))
+    logging.basicConfig(
+        level=(logging.WARN if args.quiet else logging.INFO),
+        format="%(levelname)s:%(name)s: %(message)s"
+    )
 
     session = Session(
         user_agent=args.user_agent,
@@ -86,6 +99,7 @@ def main():
             args.dir,
             raw=args.raw,
             root=args.root,
+            ignore_errors=args.ignore_errors
         )
     else:
         flag = "id_" if args.raw else ""
