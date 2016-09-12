@@ -73,7 +73,7 @@ class Pack(object):
                         ex_name,
                         e
                     ))
-                    return
+                    continue
                 else:
                     raise
 
