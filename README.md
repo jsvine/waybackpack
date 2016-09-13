@@ -1,4 +1,4 @@
-# waybackpack `v0.3.3`
+# waybackpack `v0.3.4`
 
 Waybackpack is a command-line tool that lets you download the entire Wayback Machine archive for a given URL.
 
