@@ -24,7 +24,7 @@ setup(
     keywords="wayback machine archive",
     author="Jeremy Singer-Vine",
     author_email="jsvine@gmail.com",
-    url="http://github.com/jsvine/waybackpack",
+    url="https://github.com/jsvine/waybackpack",
     license="MIT",
     version=version,
     packages=find_packages(exclude=["test",]),
