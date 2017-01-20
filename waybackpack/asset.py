@@ -17,9 +17,9 @@ REMOVAL_PATTERNS = [
 ]
 
 REDIRECT_PATTERNS = [
-    re.compile(b'<p [^>]+>Got an HTTP (30\d) response at crawl time</p>'),
-    re.compile(b'<title>\s*Internet Archive Wayback Machine\s*</title>'),
-    re.compile(b'<a href="([^"]+)">Impatient\?</a>')
+    re.compile(br'<p [^>]+>Got an HTTP (30\d) response at crawl time</p>'),
+    re.compile(br'<title>\s*Internet Archive Wayback Machine\s*</title>'),
+    re.compile(br'<a href="([^"]+)">Impatient\?</a>')
 ]
 
 class Asset(object):
