@@ -3,6 +3,7 @@ from .session import Session
 from .asset import Asset
 from .cdx import search
 import hashlib
+import urllib
 import sys, os
 import logging
 logger = logging.getLogger(__name__)
@@ -15,7 +16,7 @@ except ImportError:
 class Pack(object):
     def __init__(self,
         url,
-        timestamps=None,
+        snapshots=None,
         uniques_only=False,
         session=None):
 
@@ -26,12 +27,12 @@ class Pack(object):
 
         self.session = session or Session()
 
-        self.timestamps = timestamps or [ snap["timestamp"] for snap in search(
+        self.snapshots = snapshots or search(
             url,
             uniques_only=uniques_only,
             session=self.session
-        ) ]
-        self.assets = [ Asset(self.url, ts) for ts in self.timestamps ]
+        )
+        self.assets = [ Asset(snapshot) for snapshot in self.snapshots ]
 
     def download_to(self, directory,
         raw=False,
@@ -39,9 +40,14 @@ class Pack(object):
         ignore_errors=False):
 
         for asset in self.assets:
-            path_head, path_tail = os.path.split(self.parsed_url.path)
-            if path_tail == "":
-                path_tail = "index.html"
+            path = urllib.parse.urlparse(asset.original_url).path[1:]
+
+            if path:
+                path_head, path_tail = path.rsplit('/', 1)
+                if not path_tail:
+                    path_tail = 'index.html'
+            else:
+                path_head, path_tail = '', 'index.html'
 
             filedir = os.path.join(
                 directory,
