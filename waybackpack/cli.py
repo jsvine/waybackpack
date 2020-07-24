@@ -58,6 +58,11 @@ def parse_args():
         help="Don't crash on non-HTTP errors e.g., the requests library's ChunkedEncodingError. Instead, log error and continue. Cf. https://github.com/jsvine/waybackpack/issues/19",
         action="store_true")
 
+    parser.add_argument("--max-retries",
+        help="How many times to try accessing content with 4XX or 5XX status code before skipping?",
+        type=int,
+        default=3)
+
     parser.add_argument("--quiet",
         action="store_true",
         help="Don't log progress to stderr.")
@@ -75,7 +80,8 @@ def main():
 
     session = Session(
         user_agent=args.user_agent,
-        follow_redirects=args.follow_redirects
+        follow_redirects=args.follow_redirects,
+        max_retries=args.max_retries
     )
 
     snapshots = search(args.url,

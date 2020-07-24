@@ -68,6 +68,7 @@ class Pack(object):
                     raw=raw,
                     root=root
                 )
+
             except Exception as e:
                 if ignore_errors == True:
                     ex_name = ".".join([ e.__module__, e.__class__.__name__ ])

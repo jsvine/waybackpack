@@ -1,4 +1,4 @@
-# waybackpack `v0.3.5`
+# waybackpack `v0.3.6`
 
 Waybackpack is a command-line tool that lets you download the entire Wayback Machine archive for a given URL.
 
@@ -81,6 +81,9 @@ optional arguments:
                         https://github.com/internetarchive/wayback/blob/master
                         /wayback-cdx-server/README.md#collapsing
   --quiet               Don't log progress to stderr.
+  --max-retries MAX_RETRIES
+                        How many times to try accessing content with 4XX or
+                        5XX status code before skipping?
 ```
 
 ## Support

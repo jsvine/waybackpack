@@ -43,11 +43,14 @@ class Asset(object):
         session = session or Session()
         url = self.get_archive_url(raw)
         res = session.get(url)
-        content = res.content
-        if content == None: return
 
+        if res is None:
+            return None
+
+        content = res.content
         if raw:
             return content
+
         else:
             rdp = REDIRECT_PATTERNS
 
