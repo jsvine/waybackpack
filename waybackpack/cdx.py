@@ -1,4 +1,6 @@
 from .session import Session
+import logging
+logger = logging.getLogger(__name__)
 
 SEARCH_URL = "https://web.archive.org/cdx/search/cdx"
 
@@ -10,14 +12,24 @@ def search(url,
     session=None):
 
     session = session or Session()
-    cdx = session.get(SEARCH_URL, params={
+    res = session.get(SEARCH_URL, params={
         "url": url,
         "from": from_date,
         "to": to_date,
         "showDupeCount": "true",
         "output": "json",
         "collapse": collapse
-    }).json()
+    })
+
+    if res.status_code == 200:
+        cdx = res.json()
+    else:
+        log_msg = 'CDX exception: "{0}"'
+        logger.info(log_msg.format(
+            res.content.decode("utf-8").strip()
+        ))
+        return []
+
     if len(cdx) < 2: return []
     fields = cdx[0]
     snapshots = [ dict(zip(fields, row)) for row in cdx[1:] ]

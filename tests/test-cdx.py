@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
             to_date="1996"
         )
         assert(len(clipped) < len(snapshots))
-        assert(len(clipped) == 4)
+        assert(len(clipped) == 5)
 
     def test_uniques(self):
         url = "dol.gov"

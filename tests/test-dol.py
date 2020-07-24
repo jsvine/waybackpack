@@ -9,6 +9,7 @@ class Test(unittest.TestCase):
         snapshots = waybackpack.search(url)
         timestamps = [ snap["timestamp"] for snap in snapshots ]
         first = waybackpack.Asset(url, timestamps[0])
-        content = first.fetch()
+        session = waybackpack.Session(follow_redirects = True)
+        content = first.fetch(session = session)
         assert(b"Regulatory Information" in content)        
         assert(len(content) > 0)
