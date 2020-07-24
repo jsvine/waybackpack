@@ -26,11 +26,15 @@ class Pack(object):
 
         self.session = session or Session()
 
-        self.timestamps = timestamps or [ snap["timestamp"] for snap in search(
-            url,
-            uniques_only=uniques_only,
-            session=self.session
-        ) ]
+        if timestamps is None:
+            self.timestamps = [ snap["timestamp"] for snap in search(
+                url,
+                uniques_only=uniques_only,
+                session=self.session
+            ) ]
+        else:
+            self.timestamps = timestamps
+
         self.assets = [ Asset(self.url, ts) for ts in self.timestamps ]
 
     def download_to(self, directory,

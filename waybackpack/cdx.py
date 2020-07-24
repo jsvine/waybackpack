@@ -23,6 +23,7 @@ def search(url,
 
     if res.status_code == 200:
         cdx = res.json()
+
     else:
         log_msg = 'CDX exception: "{0}"'
         logger.info(log_msg.format(
