@@ -69,6 +69,9 @@ class Pack(object):
                     root=root
                 )
 
+                if content is None:
+                    continue
+
             except Exception as e:
                 if ignore_errors == True:
                     ex_name = ".".join([ e.__module__, e.__class__.__name__ ])
@@ -86,6 +89,7 @@ class Pack(object):
                 os.makedirs(filedir)
             except OSError:
                 pass
+
             with open(filepath, "wb") as f:
                 logger.info("Writing to {0}\n".format(filepath))
                 f.write(content)
