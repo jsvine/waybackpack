@@ -40,7 +40,8 @@ class Pack(object):
     def download_to(self, directory,
         raw=False,
         root=DEFAULT_ROOT,
-        ignore_errors=False):
+        ignore_errors=False,
+        no_clobber=False):
 
         for asset in self.assets:
             path_head, path_tail = os.path.split(self.parsed_url.path)
@@ -55,6 +56,9 @@ class Pack(object):
             )
 
             filepath = os.path.join(filedir, path_tail)
+
+            if no_clobber and (os.path.exists(filepath) and os.path.getsize(filepath) > 0):
+                continue
 
             logger.info(
                 "Fetching {0} @ {1}".format(
