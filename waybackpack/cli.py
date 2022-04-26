@@ -105,7 +105,8 @@ def main():
             args.dir,
             raw=args.raw,
             root=args.root,
-            ignore_errors=args.ignore_errors
+            ignore_errors=args.ignore_errors,
+            use_tqdm=False
         )
     else:
         flag = "id_" if args.raw else ""
