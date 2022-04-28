@@ -29,6 +29,9 @@ setup(
     version=version,
     packages=find_packages(exclude=["test",]),
     tests_require=[ "nose" ] + base_reqs,
+    extras_require = {
+        'full': ['tqdm']
+    },
     install_requires=base_reqs,
     entry_points={
         "console_scripts": [ "waybackpack = waybackpack.cli:main" ]

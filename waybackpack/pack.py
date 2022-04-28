@@ -12,6 +12,12 @@ try:
 except ImportError:
     from urlparse import urlparse
 
+try:
+    from tqdm.auto import tqdm
+    has_tqdm = True
+except: 
+    has_tqdm = False
+
 class Pack(object):
     def __init__(self,
         url,
@@ -41,9 +47,10 @@ class Pack(object):
         raw=False,
         root=DEFAULT_ROOT,
         ignore_errors=False,
-        no_clobber=False):
+        no_clobber=False,
+        use_tqdm=has_tqdm):
 
-        for asset in self.assets:
+        for asset in (tqdm(self.assets) if use_tqdm else self.assets) :
             path_head, path_tail = os.path.split(self.parsed_url.path)
             if path_tail == "":
                 path_tail = "index.html"

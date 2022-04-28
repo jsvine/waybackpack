@@ -111,7 +111,8 @@ def main():
             raw=args.raw,
             root=args.root,
             ignore_errors=args.ignore_errors,
-            no_clobber=args.no_clobber
+            no_clobber=args.no_clobber,
+            use_tqdm=False
         )
     else:
         flag = "id_" if args.raw else ""
