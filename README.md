@@ -5,7 +5,7 @@ Waybackpack is a command-line tool that lets you download the entire Wayback Mac
 For instance, to download every copy of the Department of Labor's homepage through 1996 (which happens to be the first year the site was archived), you'd run:
 
 ```sh
-waybackpack dol.gov -d ~/Downloads/dol-wayback --to-date 1996
+waybackpack http://www.dol.gov/ -d ~/Downloads/dol-wayback --to-date 1996
 ```
 
 Result:
@@ -13,23 +13,23 @@ Result:
 ```sh
 ~/Downloads/dol-wayback/
 ├── 19961102145216
-│   └── dol.gov
+│   └── www.dol.gov
 │       └── index.html
 ├── 19961103063843
-│   └── dol.gov
+│   └── www.dol.gov
 │       └── index.html
 ├── 19961222171647
-│   └── dol.gov
+│   └── www.dol.gov
 │       └── index.html
 └── 19961223193614
-    └── dol.gov
+    └── www.dol.gov
         └── index.html
 ```
 
 Or, just to print the URLs of all archived snapshots:
 
 ```sh
-waybackpack dol.gov --list
+waybackpack http://www.dol.gov/ --list
 ```
 
 ## Installation
