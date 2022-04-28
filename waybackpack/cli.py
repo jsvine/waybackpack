@@ -63,6 +63,11 @@ def parse_args():
         type=int,
         default=3)
 
+    parser.add_argument("--no-clobber",
+        action="store_true",
+        help="If a file is already present (and >0 filesize), don't download it again."
+    )
+
     parser.add_argument("--quiet",
         action="store_true",
         help="Don't log progress to stderr.")
@@ -106,6 +111,7 @@ def main():
             raw=args.raw,
             root=args.root,
             ignore_errors=args.ignore_errors,
+            no_clobber=args.no_clobber,
             use_tqdm=False
         )
     else:

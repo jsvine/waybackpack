@@ -47,6 +47,7 @@ class Pack(object):
         raw=False,
         root=DEFAULT_ROOT,
         ignore_errors=False,
+        no_clobber=False,
         use_tqdm=has_tqdm):
 
         for asset in (tqdm(self.assets) if use_tqdm else self.assets) :
@@ -62,6 +63,9 @@ class Pack(object):
             )
 
             filepath = os.path.join(filedir, path_tail)
+
+            if no_clobber and (os.path.exists(filepath) and os.path.getsize(filepath) > 0):
+                continue
 
             logger.info(
                 "Fetching {0} @ {1}".format(
