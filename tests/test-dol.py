@@ -5,7 +5,7 @@ import sys, os
 
 class Test(unittest.TestCase):
     def test_basic(self):
-        url = "dol.gov"
+        url = "http://www.dol.gov/"
         snapshots = waybackpack.search(url)
         timestamps = [ snap["timestamp"] for snap in snapshots ]
         first = waybackpack.Asset(url, timestamps[0])
