@@ -41,10 +41,12 @@ pip install waybackpack
 ## Usage
 
 ```
-usage: waybackpack [-h] (-d DIR | --list) [--raw] [--root ROOT]
+usage: waybackpack [-h] [--version] (-d DIR | --list) [--raw] [--root ROOT]
                    [--from-date FROM_DATE] [--to-date TO_DATE]
                    [--user-agent USER_AGENT] [--follow-redirects]
-                   [--uniques-only] [--collapse COLLAPSE] [--quiet]
+                   [--uniques-only] [--collapse COLLAPSE] [--ignore-errors]
+                   [--max-retries MAX_RETRIES] [--no-clobber] [--quiet]
+                   [--progress]
                    url
 
 positional arguments:
@@ -52,6 +54,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --version             show program's version number and exit
   -d DIR, --dir DIR     Directory to save the files. Will create this
                         directory if it doesn't already exist.
   --list                Instead of downloading the files, only print the list
@@ -77,13 +80,21 @@ optional arguments:
                         to contact. Default: 'waybackpack'.
   --follow-redirects    Follow redirects.
   --uniques-only        Download only the first version of duplicate files.
-  --collapse COLLAPSE   An archive.org `collapse` parameter. Cf.:
-                        https://github.com/internetarchive/wayback/blob/master
-                        /wayback-cdx-server/README.md#collapsing
-  --quiet               Don't log progress to stderr.
+  --collapse COLLAPSE   An archive.org `collapse` parameter. Cf.: https://gith
+                        ub.com/internetarchive/wayback/blob/master/wayback-
+                        cdx-server/README.md#collapsing
+  --ignore-errors       Don't crash on non-HTTP errors e.g., the requests
+                        library's ChunkedEncodingError. Instead, log error and
+                        continue. Cf.
+                        https://github.com/jsvine/waybackpack/issues/19
   --max-retries MAX_RETRIES
                         How many times to try accessing content with 4XX or
                         5XX status code before skipping?
+  --no-clobber          If a file is already present (and >0 filesize), don't
+                        download it again.
+  --quiet               Don't log progress to stderr.
+  --progress            Print a progress bar. Mutes the default logging.
+                        Requires `tqdm` to be installed.
 ```
 
 ## Support
