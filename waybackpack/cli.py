@@ -63,7 +63,7 @@ def parse_args():
         type=int,
         default=3)
 
-    parser.add_argument("-nc", "--no-clobber",
+    parser.add_argument("--no-clobber",
         action="store_true",
         help="If a file is already present (and >0 filesize), don't download it again."
     )
