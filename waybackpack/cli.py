@@ -72,6 +72,10 @@ def parse_args():
         action="store_true",
         help="Don't log progress to stderr.")
 
+    parser.add_argument("--progress",
+        action="store_true",
+        help="Print a progress bar. Mutes the default logging. Requires `tqdm` to be installed.")
+
     args = parser.parse_args()
     return args
 
@@ -79,7 +83,7 @@ def main():
     args = parse_args()
 
     logging.basicConfig(
-        level=(logging.WARN if args.quiet else logging.INFO),
+        level=(logging.WARN if (args.quiet or args.progress) else logging.INFO),
         format="%(levelname)s:%(name)s: %(message)s"
     )
 
@@ -112,7 +116,7 @@ def main():
             root=args.root,
             ignore_errors=args.ignore_errors,
             no_clobber=args.no_clobber,
-            use_tqdm=False
+            progress=args.progress
         )
     else:
         flag = "id_" if args.raw else ""

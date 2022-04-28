@@ -48,9 +48,12 @@ class Pack(object):
         root=DEFAULT_ROOT,
         ignore_errors=False,
         no_clobber=False,
-        use_tqdm=has_tqdm):
+        progress=False):
 
-        for asset in (tqdm(self.assets) if use_tqdm else self.assets) :
+        if progress and not has_tqdm:
+            raise Exception("To print progress bars, you must have `tqdm` installed. To install: pip install tqdm.")
+
+        for asset in (tqdm(self.assets) if progress else self.assets) :
             path_head, path_tail = os.path.split(self.parsed_url.path)
             if path_tail == "":
                 path_tail = "index.html"
