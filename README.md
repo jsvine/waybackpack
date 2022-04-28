@@ -114,3 +114,4 @@ Many thanks to the following users for catching bugs, fixing typos, and proposin
 - [@ErikBorra](https://github.com/ErikBorra)
 - [@StevenACoffman](https://github.com/StevenACoffman)
 - [@Hunter-Github](https://github.com/Hunter-Github)
+- [@jeremybmerrill](https://github.com/jeremybmerrill)
