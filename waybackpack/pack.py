@@ -61,7 +61,7 @@ class Pack(object):
             filedir = os.path.join(
                 directory,
                 asset.timestamp,
-                self.parsed_url.netloc,
+                self.parsed_url.netloc.replace(":", "_"),
                 path_head.lstrip("/")
             )
 
