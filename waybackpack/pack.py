@@ -26,7 +26,7 @@ elif "darwin" in platform.system().lower():
     invalid_chars = ":"
 
 def replace_invalid_chars(path, fallback_char='_'):
-    return ''.join([fallback_char if c in invalid_chars else c for c in s])
+    return ''.join([fallback_char if c in invalid_chars else c for c in path])
 
 class Pack(object):
     def __init__(self,
