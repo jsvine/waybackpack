@@ -11,5 +11,5 @@ class Test(unittest.TestCase):
         first = waybackpack.Asset(url, timestamps[0])
         session = waybackpack.Session(follow_redirects = True)
         content = first.fetch(session = session)
-        assert(b"Regulatory Information" in content)        
+        assert(b"Regulatory Information" in content)
         assert(len(content) > 0)

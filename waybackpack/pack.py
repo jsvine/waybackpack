@@ -15,7 +15,7 @@ except ImportError:
 try:
     from tqdm.auto import tqdm
     has_tqdm = True
-except: 
+except:
     has_tqdm = False
 
 class Pack(object):
@@ -72,7 +72,7 @@ class Pack(object):
 
             logger.info(
                 "Fetching {0} @ {1}".format(
-                    asset.original_url, 
+                    asset.original_url,
                     asset.timestamp)
             )
 
