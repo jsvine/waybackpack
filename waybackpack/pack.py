@@ -15,7 +15,7 @@ except ImportError:
 try:
     from tqdm.auto import tqdm
     has_tqdm = True
-except:
+except ImportError:
     has_tqdm = False
 
 class Pack(object):
