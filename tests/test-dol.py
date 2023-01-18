@@ -1,7 +1,9 @@
 #!/usr/bin/env python
+import os
+import sys
 import unittest
+
 import waybackpack
-import sys, os
 
 
 class Test(unittest.TestCase):

@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-import unittest
-import waybackpack
-import sys, os
+import os
 import shutil
+import sys
 import tempfile
+import unittest
 from unittest.mock import MagicMock
+
+import waybackpack
 
 
 class Test(unittest.TestCase):

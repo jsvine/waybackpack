@@ -1,5 +1,6 @@
-from .session import Session
 import logging
+
+from .session import Session
 
 logger = logging.getLogger(__name__)
 

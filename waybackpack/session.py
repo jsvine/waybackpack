@@ -1,7 +1,9 @@
-from .settings import DEFAULT_USER_AGENT
-import requests
-import time
 import logging
+import time
+
+import requests
+
+from .settings import DEFAULT_USER_AGENT
 
 logger = logging.getLogger(__name__)
 

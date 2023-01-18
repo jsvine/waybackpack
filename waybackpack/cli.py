@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-from .session import Session
-from .pack import Pack
-from .cdx import search
-from .version import __version__
-from .settings import DEFAULT_USER_AGENT, DEFAULT_ROOT
 import argparse
 import logging
+
+from .cdx import search
+from .pack import Pack
+from .session import Session
+from .settings import DEFAULT_ROOT, DEFAULT_USER_AGENT
+from .version import __version__
 
 
 def parse_args():

@@ -1,10 +1,12 @@
+import datetime as dt
+import logging
+import os
+import re
+import sys
+import time
+
 from .session import Session
 from .settings import DEFAULT_ROOT
-import datetime as dt
-import re
-import time
-import sys, os
-import logging
 
 logger = logging.getLogger(__name__)
 

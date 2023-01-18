@@ -1,11 +1,13 @@
-from .settings import DEFAULT_ROOT
-from .session import Session
+import hashlib
+import logging
+import os
+import platform
+import sys
+
 from .asset import Asset
 from .cdx import search
-import hashlib
-import sys, os
-import platform
-import logging
+from .session import Session
+from .settings import DEFAULT_ROOT
 
 logger = logging.getLogger(__name__)
 
