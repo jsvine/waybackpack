@@ -28,7 +28,7 @@ setup(
     license="MIT",
     version=version,
     packages=find_packages(exclude=["test",]),
-    tests_require=[ "nose" ] + base_reqs,
+    tests_require=[ "pytest", "pytest-coverage" ] + base_reqs,
     extras_require = {
         'full': ['tqdm']
     },
