@@ -115,3 +115,6 @@ Many thanks to the following users for catching bugs, fixing typos, and proposin
 - [@StevenACoffman](https://github.com/StevenACoffman)
 - [@Hunter-Github](https://github.com/Hunter-Github)
 - [@jeremybmerrill](https://github.com/jeremybmerrill)
+- [@peci1](https://github.com/peci1)
+- [@shijialee](https://github.com/shijialee)
+- [@pmlandwehr](https://github.com/pmlandwehr)
