@@ -33,6 +33,8 @@ REDIRECT_PATTERNS = [
 
 class Asset(object):
     def __init__(self, original_url, timestamp):
+        # Ensure timestamp is only numeric
+        assert re.match(r"^\d*$", timestamp) is not None
         self.timestamp = timestamp
         self.original_url = original_url
 
