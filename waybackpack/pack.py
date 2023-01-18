@@ -19,14 +19,16 @@ try:
 except ImportError:
     has_tqdm = False
 
-invalid_chars = ""
-if "windows" in platform.system().lower() or "cygwin" in platform.system().lower():
+psl = platform.system().lower()
+if "windows" in psl or "cygwin" in psl:
     invalid_chars = "<>:\"\\|?*"
-elif "darwin" in platform.system().lower():
+elif "darwin" in psl:
     invalid_chars = ":"
+else:
+    invalid_chars = ""
 
-def replace_invalid_chars(path, fallback_char='_'):
-    return ''.join([fallback_char if c in invalid_chars else c for c in path])
+def replace_invalid_chars(path, fallback_char="_"):
+    return "".join([fallback_char if c in invalid_chars else c for c in path])
 
 class Pack(object):
     def __init__(self,
@@ -59,7 +61,7 @@ class Pack(object):
         ignore_errors=False,
         no_clobber=False,
         progress=False,
-        fallback_char='_'):
+        fallback_char="_"):
 
         if progress and not has_tqdm:
             raise Exception("To print progress bars, you must have `tqdm` installed. To install: pip install tqdm.")
