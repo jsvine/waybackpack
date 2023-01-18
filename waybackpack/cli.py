@@ -52,7 +52,8 @@ def parse_args():
         action="store_true")
 
     parser.add_argument("--collapse",
-        help="An archive.org `collapse` parameter. Cf.: https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md#collapsing")
+        help="An archive.org `collapse` parameter. Cf.: https://github.com/internetarchive/wayback/blob/master/wayback-cdx-server/README.md#collapsing",
+        action="append")
 
     parser.add_argument("--ignore-errors",
         help="Don't crash on non-HTTP errors e.g., the requests library's ChunkedEncodingError. Instead, log error and continue. Cf. https://github.com/jsvine/waybackpack/issues/19",
