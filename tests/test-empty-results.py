@@ -7,14 +7,15 @@ import sys, os
 
 URL = "https://indianexpress.com/section/lifestyle/health/feed/"
 
+
 class Test(unittest.TestCase):
     def test_empty_result(self):
-        timestamps = waybackpack.search(URL, from_date = "2080")
+        timestamps = waybackpack.search(URL, from_date="2080")
 
-        assert(len(timestamps) == 0)
+        assert len(timestamps) == 0
 
         pack = waybackpack.Pack(
             URL,
             timestamps=timestamps,
         )
-        assert(len(pack.timestamps) == 0)
+        assert len(pack.timestamps) == 0
