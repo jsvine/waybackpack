@@ -1,9 +1,5 @@
-import datetime as dt
 import logging
-import os
 import re
-import sys
-import time
 
 from .session import Session
 from .settings import DEFAULT_ROOT
@@ -64,9 +60,9 @@ class Asset(object):
         else:
             rdp = REDIRECT_PATTERNS
 
-            is_js_redirect = sum(re.search(pat, content) != None for pat in rdp) == len(
-                rdp
-            )
+            is_js_redirect = sum(
+                re.search(pat, content) is not None for pat in rdp
+            ) == len(rdp)
 
             if is_js_redirect:
                 code = re.search(rdp[0], content).group(1).decode("utf-8")
@@ -78,7 +74,7 @@ class Asset(object):
                 else:
                     pass
 
-            if re.search(REMOVAL_PATTERNS[0], content) != None:
+            if re.search(REMOVAL_PATTERNS[0], content) is not None:
                 for pat in REMOVAL_PATTERNS:
                     content = re.sub(pat, b"", content)
                 if root != "":

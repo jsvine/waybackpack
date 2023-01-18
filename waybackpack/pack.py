@@ -1,8 +1,6 @@
-import hashlib
 import logging
 import os
 import platform
-import sys
 
 from .asset import Asset
 from .cdx import search
@@ -104,7 +102,7 @@ class Pack(object):
                     continue
 
             except Exception as e:
-                if ignore_errors == True:
+                if ignore_errors is True:
                     ex_name = ".".join([e.__module__, e.__class__.__name__])
                     logger.warn(
                         "ERROR -- {0} @ {1} -- {2}: {3}".format(

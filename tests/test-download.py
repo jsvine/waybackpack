@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-import os
 import shutil
-import sys
 import tempfile
 import unittest
 from unittest.mock import MagicMock

@@ -25,7 +25,7 @@ class Session(object):
         }
         response_is_final = False
         retries = 0
-        while response_is_final == False:
+        while response_is_final is False:
             res = requests.get(
                 url,
                 allow_redirects=self.follow_redirects,
