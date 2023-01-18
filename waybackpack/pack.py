@@ -4,6 +4,7 @@ from .asset import Asset
 from .cdx import search
 import hashlib
 import sys, os
+import platform
 import logging
 logger = logging.getLogger(__name__)
 
@@ -17,6 +18,15 @@ try:
     has_tqdm = True
 except ImportError:
     has_tqdm = False
+
+invalid_chars = ""
+if "windows" in platform.system().lower() or "cygwin" in platform.system().lower():
+    invalid_chars = "<>:\"\\|?*"
+elif "darwin" in platform.system().lower():
+    invalid_chars = ":"
+
+def replace_invalid_chars(path, fallback_char='_'):
+    return ''.join([fallback_char if c in invalid_chars else c for c in path])
 
 class Pack(object):
     def __init__(self,
@@ -48,7 +58,8 @@ class Pack(object):
         root=DEFAULT_ROOT,
         ignore_errors=False,
         no_clobber=False,
-        progress=False):
+        progress=False,
+        fallback_char='_'):
 
         if progress and not has_tqdm:
             raise Exception("To print progress bars, you must have `tqdm` installed. To install: pip install tqdm.")
@@ -61,11 +72,11 @@ class Pack(object):
             filedir = os.path.join(
                 directory,
                 asset.timestamp,
-                self.parsed_url.netloc,
-                path_head.lstrip("/")
+                replace_invalid_chars(self.parsed_url.netloc, fallback_char),
+                replace_invalid_chars(path_head.lstrip("/"), fallback_char)
             )
 
-            filepath = os.path.join(filedir, path_tail)
+            filepath = os.path.join(filedir, replace_invalid_chars(path_tail, fallback_char))
 
             if no_clobber and (os.path.exists(filepath) and os.path.getsize(filepath) > 0):
                 continue
