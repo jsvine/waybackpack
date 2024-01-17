@@ -11,3 +11,6 @@ lint:
 
 tests:
 	pytest tests -sv --cov
+
+usage:
+	COLUMNS=80 waybackpack -h
