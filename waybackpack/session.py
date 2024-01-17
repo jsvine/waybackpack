@@ -39,7 +39,10 @@ class Session(object):
             else:
                 return True, res
 
-        except requests.exceptions.ConnectionError:
+        except (
+            requests.exceptions.ConnectionError,
+            requests.exceptions.ConnectTimeout,
+        ):
             logger.info("Connection error")
             return False, None
 
