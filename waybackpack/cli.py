@@ -113,6 +113,13 @@ def parse_args():
         "--delay", type=int, default=0, help="Sleep X seconds between each fetch."
     )
 
+    parser.add_argument(
+        "--delay-retry",
+        type=int,
+        default=5,
+        help="Sleep X seconds between each post-error retry.",
+    )
+
     args = parser.parse_args()
     return args
 
@@ -129,6 +136,7 @@ def main():
         user_agent=args.user_agent,
         follow_redirects=args.follow_redirects,
         max_retries=args.max_retries,
+        delay_retry=args.delay_retry,
     )
 
     snapshots = search(

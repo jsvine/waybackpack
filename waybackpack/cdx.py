@@ -7,6 +7,10 @@ logger = logging.getLogger(__name__)
 SEARCH_URL = "https://web.archive.org/cdx/search/cdx"
 
 
+class WaybackpackException(Exception):
+    pass
+
+
 def search(
     url, from_date=None, to_date=None, uniques_only=False, collapse=None, session=None
 ):
@@ -23,6 +27,8 @@ def search(
             "collapse": collapse,
         },
     )
+    if res is None:
+        raise WaybackpackException("Difficulty connecting to Wayback Machine CDX API")
 
     if res.status_code == 200:
         cdx = res.json()
