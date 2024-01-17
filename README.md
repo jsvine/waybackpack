@@ -1,4 +1,4 @@
-# waybackpack `v0.5.0`
+# waybackpack `v0.6.0`
 
 Waybackpack is a command-line tool that lets you download the entire Wayback Machine archive for a given URL.
 
@@ -46,13 +46,13 @@ usage: waybackpack [-h] [--version] (-d DIR | --list) [--raw] [--root ROOT]
                    [--user-agent USER_AGENT] [--follow-redirects]
                    [--uniques-only] [--collapse COLLAPSE] [--ignore-errors]
                    [--max-retries MAX_RETRIES] [--no-clobber] [--quiet]
-                   [--progress]
+                   [--progress] [--delay DELAY] [--delay-retry DELAY_RETRY]
                    url
 
 positional arguments:
   url                   The URL of the resource you want to download.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
   -d DIR, --dir DIR     Directory to save the files. Will create this
@@ -95,6 +95,9 @@ optional arguments:
   --quiet               Don't log progress to stderr.
   --progress            Print a progress bar. Mutes the default logging.
                         Requires `tqdm` to be installed.
+  --delay DELAY         Sleep X seconds between each fetch.
+  --delay-retry DELAY_RETRY
+                        Sleep X seconds between each post-error retry.
 ```
 
 ## Support

@@ -2,7 +2,7 @@ import sys, os
 from setuptools import setup, find_packages
 import subprocess
 
-version = "0.5.0"
+version = "0.6.0"
 
 base_reqs = [
     "requests"
