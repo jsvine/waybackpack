@@ -9,7 +9,7 @@ import waybackpack
 
 class Test(unittest.TestCase):
     def test_basic(self):
-        url = "http://www.dol.gov/"
+        url = "https://www.dol.gov/"
         snapshots = waybackpack.search(url, to_date=1996)
         timestamps = [snap["timestamp"] for snap in snapshots]
         pack = waybackpack.Pack(url, timestamps)
@@ -18,7 +18,7 @@ class Test(unittest.TestCase):
         shutil.rmtree(dirpath)
 
     def test_no_clobber(self):
-        url = "http://whitehouse.gov/"
+        url = "https://whitehouse.gov/"
         snapshots = waybackpack.search(url, to_date=20010510, from_date=20010501)
         timestamps = [snap["timestamp"] for snap in snapshots]
         pack = waybackpack.Pack(url, timestamps)
