@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         pack = waybackpack.Pack(url, timestamps)
         for asset in pack.assets:
             asset.fetch = MagicMock(return_value=b"asdfasdf")
-        pack.download_to(dirpath, no_clobber=True)
+        pack.download_to(dirpath, no_clobber=True, delay=1)
         self.assertTrue(
             sum(asset.fetch.call_count for asset in pack.assets) < len(pack.assets)
         )
