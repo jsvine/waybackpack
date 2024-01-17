@@ -1,6 +1,7 @@
 import logging
 import os
 import platform
+import time
 
 from .asset import Asset
 from .cdx import search
@@ -62,6 +63,7 @@ class Pack(object):
         ignore_errors=False,
         no_clobber=False,
         progress=False,
+        delay=0,
         fallback_char="_",
     ):
 
@@ -70,7 +72,11 @@ class Pack(object):
                 "To print progress bars, you must have `tqdm` installed. To install: pip install tqdm."
             )
 
-        for asset in tqdm(self.assets) if progress else self.assets:
+        for i, asset in enumerate(tqdm(self.assets) if progress else self.assets):
+            if i > 0 and delay:
+                logger.info("Sleeping {0} seconds".format(delay))
+                time.sleep(delay)
+
             path_head, path_tail = os.path.split(self.parsed_url.path)
             if path_tail == "":
                 path_tail = "index.html"

@@ -109,6 +109,10 @@ def parse_args():
         help="Print a progress bar. Mutes the default logging. Requires `tqdm` to be installed.",
     )
 
+    parser.add_argument(
+        "--delay", type=int, default=0, help="Sleep X seconds between each fetch."
+    )
+
     args = parser.parse_args()
     return args
 
@@ -148,6 +152,7 @@ def main():
             ignore_errors=args.ignore_errors,
             no_clobber=args.no_clobber,
             progress=args.progress,
+            delay=args.delay,
         )
     else:
         flag = "id_" if args.raw else ""
