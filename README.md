@@ -102,7 +102,7 @@ options:
 
 ## Support
 
-Waypackback is written in pure Python, depends only on [`requests`](docs.python-requests.org), and should work wherever Python works. Should be compatible with both Python 2 and Python 3.
+Waypackback is written in pure Python, depends only on [`requests`](docs.python-requests.org), and should work wherever Python works. Requires Python 3.3+.
 
 ## Thanks
 
