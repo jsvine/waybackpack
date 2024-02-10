@@ -32,7 +32,11 @@ else:
 
 
 def replace_invalid_chars(path, fallback_char="_"):
-    return "".join([fallback_char if c in invalid_chars else c for c in path])
+    path = "".join([fallback_char if c in invalid_chars else c for c in path])
+    return "/".join(
+        fallback_char * len(part) if part in {os.curdir, os.pardir} else part
+        for part in path.split("/")
+    )
 
 
 class Pack(object):
