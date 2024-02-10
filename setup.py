@@ -2,7 +2,9 @@ import sys, os
 from setuptools import setup, find_packages
 import subprocess
 
-version = "0.6.1"
+version = {}
+with open("waybackpack/version.py") as fp:
+    exec(fp.read(), version)
 
 base_reqs = [
     "requests"
@@ -32,7 +34,7 @@ setup(
     author_email="jsvine@gmail.com",
     url="https://github.com/jsvine/waybackpack",
     license="MIT",
-    version=version,
+    version=version["__version__"],
     packages=find_packages(exclude=["test",]),
     tests_require=[ "pytest", "pytest-coverage" ] + base_reqs,
     extras_require = {

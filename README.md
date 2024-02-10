@@ -1,4 +1,6 @@
-# waybackpack `v0.6.1`
+# waybackpack
+
+[![Version](https://img.shields.io/pypi/v/waybackpack.svg)](https://pypi.python.org/pypi/waybackpack) [![Support Python versions](https://img.shields.io/pypi/pyversions/waybackpack.svg)](https://pypi.python.org/pypi/waybackpack)
 
 Waybackpack is a command-line tool that lets you download the entire Wayback Machine archive for a given URL.
 
