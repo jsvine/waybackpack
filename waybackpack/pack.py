@@ -79,10 +79,6 @@ class Pack(object):
             )
 
         for i, asset in enumerate(tqdm(self.assets) if progress else self.assets):
-            if i > 0 and delay:
-                logger.info("Sleeping {0} seconds".format(delay))
-                time.sleep(delay)
-
             path_head, path_tail = os.path.split(self.parsed_url.path)
             if path_tail == "":
                 path_tail = "index.html"
@@ -102,6 +98,10 @@ class Pack(object):
                 os.path.exists(filepath) and os.path.getsize(filepath) > 0
             ):
                 continue
+
+            if i > 0 and delay:
+                logger.info("Sleeping {0} seconds".format(delay))
+                time.sleep(delay)
 
             logger.info(
                 "Fetching {0} @ {1}".format(asset.original_url, asset.timestamp)
