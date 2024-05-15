@@ -43,6 +43,10 @@ def search(
     fields = cdx[0]
     snapshots = [dict(zip(fields, row)) for row in cdx[1:]]
     if uniques_only:
+        if len(snapshots) and "dupecount" not in snapshots[0]:
+            raise WaybackpackException(
+                "Wayback Machine CDX API not respecting showDupeCount=true; retry without --uniques-only."
+            )
         return [s for s in snapshots if int(s["dupecount"]) == 0]
     else:
         return snapshots
