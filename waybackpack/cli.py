@@ -130,7 +130,7 @@ def parse_args():
         "--no-verify-certificate",
         action='store_false',
         default=True,
-        help="Trust the certificate of archive.org"
+        help="Don`t verify the certificate of archive.org"
     )
 
     args = parser.parse_args()
