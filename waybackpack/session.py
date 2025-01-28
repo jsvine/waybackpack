@@ -15,22 +15,29 @@ class Session(object):
         user_agent=DEFAULT_USER_AGENT,
         max_retries=3,
         delay_retry=5,
+        proxy=None,
+        verify=True
     ):
         self.follow_redirects = follow_redirects
         self.user_agent = user_agent
         self.max_retries = max_retries
         self.delay_retry = delay_retry
+        self.proxy = proxy
+        self.verify = verify
 
     def try_get(self, url, **kwargs):
         headers = {
             "User-Agent": self.user_agent,
         }
         try:
+            print(self.verify)
             res = requests.get(
                 url,
                 allow_redirects=self.follow_redirects,
                 headers=headers,
                 stream=True,
+                proxies={'http': self.proxy, 'https': self.proxy} if self.proxy else None,
+                verify=self.verify,
                 **kwargs
             )
 
