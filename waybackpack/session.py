@@ -30,7 +30,6 @@ class Session(object):
             "User-Agent": self.user_agent,
         }
         try:
-            print(self.verify)
             res = requests.get(
                 url,
                 allow_redirects=self.follow_redirects,
