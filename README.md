@@ -82,12 +82,14 @@ options:
                         to contact. Default: 'waybackpack'.
   --follow-redirects    Follow redirects.
   --uniques-only        Download only the first version of duplicate files.
-  --collapse COLLAPSE   An archive.org `collapse` parameter. Cf.: https://gith
-                        ub.com/internetarchive/wayback/blob/master/wayback-
-                        cdx-server/README.md#collapsing
+  --collapse COLLAPSE   An archive.org `collapse` parameter. E.g., --collapse
+                        timestamp:6 collapses results to at most one per
+                        month. See here: https://github.com/internetarchive/wa
+                        yback/blob/master/wayback-cdx-
+                        server/README.md#collapsing
   --ignore-errors       Don't crash on non-HTTP errors e.g., the requests
                         library's ChunkedEncodingError. Instead, log error and
-                        continue. Cf.
+                        continue. See here:
                         https://github.com/jsvine/waybackpack/issues/19
   --max-retries MAX_RETRIES
                         How many times to try accessing content with 4XX or
