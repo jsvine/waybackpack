@@ -120,6 +120,19 @@ def parse_args():
         help="Sleep X seconds between each post-error retry.",
     )
 
+    parser.add_argument(
+        "--proxy",
+        default=None,
+        help="Use a proxy to connect to the archive.org"
+    )
+
+    parser.add_argument(
+        "--no-verify-certificate",
+        action='store_false',
+        default=True,
+        help="Don`t verify the certificate of archive.org"
+    )
+
     args = parser.parse_args()
     return args
 
@@ -137,6 +150,8 @@ def main():
         follow_redirects=args.follow_redirects,
         max_retries=args.max_retries,
         delay_retry=args.delay_retry,
+        proxy=args.proxy,
+        verify=args.no_verify_certificate
     )
 
     snapshots = search(

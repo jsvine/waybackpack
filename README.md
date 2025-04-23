@@ -48,7 +48,7 @@ usage: waybackpack [-h] [--version] (-d DIR | --list) [--raw] [--root ROOT]
                    [--user-agent USER_AGENT] [--follow-redirects]
                    [--uniques-only] [--collapse COLLAPSE] [--ignore-errors]
                    [--max-retries MAX_RETRIES] [--no-clobber] [--quiet]
-                   [--progress] [--delay DELAY] [--delay-retry DELAY_RETRY]
+                   [--progress] [--delay DELAY] [--delay-retry DELAY_RETRY] [--proxy PROXY] [--no-verify-certificate]
                    url
 
 positional arguments:
@@ -102,6 +102,9 @@ options:
   --delay DELAY         Sleep X seconds between each fetch.
   --delay-retry DELAY_RETRY
                         Sleep X seconds between each post-error retry.
+  --proxy PROXY         Use a proxy to connect to the archive.org
+  --no-verify-certificate
+                        Don`t verify the certificate of archive.org
 ```
 
 ## Support
